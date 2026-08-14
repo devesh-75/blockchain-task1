@@ -1,0 +1,46 @@
+{
+  "name": "praise-board",
+  "version": "1.0.0",
+  "description": "Decentralized Tipping & Live Supporter Wall for Ifeoma",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost"
+  },
+  "keywords": [
+    "solidity",
+    "hardhat",
+    "react",
+    "ethers",
+    "web3",
+    "sepolia"
+  ],
+  "author": "Ifeoma Bus Timetables",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.5.4",
+    "hardhat": "^2.22.2",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^4.3.3",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.3",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
+    "lucide-react": "^0.359.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
