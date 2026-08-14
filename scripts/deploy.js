@@ -5,13 +5,13 @@ import path from "path";
 async function main() {
   const [deployer] = await hre.ethers.getSigners();
 
-  console.log("----------------------------------------------------");
-  console.log(" Deploying PraiseBoard Smart Contract");
-  console.log(" Deployer account:", deployer.address);
+  console.log("====================================================");
+  console.log(" Deploying The Praise Board (ThankYouWall)");
+  console.log(" Deployer account (Ifeoma):", deployer.address);
   const balance = await hre.ethers.provider.getBalance(deployer.address);
   console.log(" Account balance:", hre.ethers.formatEther(balance), "ETH");
   console.log(" Network:", hre.network.name, "(chainId:", hre.network.config.chainId || 31337, ")");
-  console.log("----------------------------------------------------");
+  console.log("====================================================");
 
   const PraiseBoard = await hre.ethers.getContractFactory("PraiseBoard");
   const praiseBoard = await PraiseBoard.deploy();
@@ -25,21 +25,23 @@ async function main() {
     network: hre.network.name,
     chainId: hre.network.config.chainId || 31337,
     address: contractAddress,
+    contractAddress: contractAddress,
+    deployedAddress: contractAddress,
     owner: deployer.address,
     deployedAt: new Date().toISOString(),
   };
 
-  // Save info to root and src for frontend access
-  const infoPath = path.join(process.cwd(), "deployment-info.json");
-  fs.writeFileSync(infoPath, JSON.stringify(deploymentData, null, 2));
-  console.log(" Saved deployment details to deployment-info.json");
+  // Save info to deployment-info.json
+  fs.writeFileSync(path.join(process.cwd(), "deployment-info.json"), JSON.stringify(deploymentData, null, 2));
+  fs.writeFileSync(path.join(process.cwd(), "deployed-address.json"), JSON.stringify(deploymentData, null, 2));
+  fs.writeFileSync(path.join(process.cwd(), "deployed-address.txt"), contractAddress);
 
-  const srcInfoPath = path.join(process.cwd(), "src", "deployment-info.json");
-  if (!fs.existsSync(path.dirname(srcInfoPath))) {
-    fs.mkdirSync(path.dirname(srcInfoPath), { recursive: true });
-  }
-  fs.writeFileSync(srcInfoPath, JSON.stringify(deploymentData, null, 2));
+  // Save to src directory for frontend consumption
+  const srcDir = path.join(process.cwd(), "src");
+  if (!fs.existsSync(srcDir)) fs.mkdirSync(srcDir, { recursive: true });
+  fs.writeFileSync(path.join(srcDir, "deployment-info.json"), JSON.stringify(deploymentData, null, 2));
 
+  console.log(" Saved deployment details to metadata files.");
   return contractAddress;
 }
 
